@@ -117,7 +117,7 @@ class PostsTable(DataBaseManager):
 		self.dbport = None
 
 	def create_post(self, post_data):
-		self.insert(self, post_data)
+		self.insert(post_data)
 	def update_post(self, updated_post_data, post_id):
 		self.update_row(updated_content, post_id)
 	def delete_post(self, post_id):
@@ -148,7 +148,7 @@ class CommentsTable(DataBaseManager):
 		self.dbport = None
 
 	def create_comment(self, comment_data):
-		self.insert(self, comment_data)
+		self.insert(comment_data)
 	def update_comment(self, updated_comment_data, comment_id):
 		self.update_row(updated_comment_data, comment_id)
 	def delete_comment(self, comment_id):
