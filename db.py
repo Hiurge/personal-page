@@ -33,9 +33,9 @@ class DataBaseManager():
 		self.db_do( command)
 
 	def insert(self, content):
-		# user_content = ['created_at', 'creator_id','post_type', 'post']
-		columns = ', '.join(['"{}"'.format(col) for col in self.column_names[1:]])
-		values  = ', '.join(["'{}'".format(v) for v in content])
+		
+		columns = ', '.join(['"{}"'.format(k) for k in content.keys()])
+		values  = ', '.join(["'{}'".format(v) for k, v in content.items()])
 		command = 'INSERT INTO {} ( {}) VALUES ( {});'.format(self.table_name, columns, values)
 		self.db_do(command)
 
@@ -65,7 +65,7 @@ class DataBaseManager():
 		command = '''DELETE FROM {} WHERE id='{}';'''.format(self.table_name, row_id)
 		self.db_do( command)
 
-class UserTableDB(DataBaseManager):
+class UsersTable(DataBaseManager):
 
 	table_name = 'users'
 	table = [
@@ -85,10 +85,8 @@ class UserTableDB(DataBaseManager):
 		self.dbpswd = None
 		self.dbport = None
 
-	def create_user_table(self):
-		self.create_table()
 	def create_user(self, user_content):
-		self.insert(self, user_content)
+		self.insert(user_content)
 	def update_user(self, updated_content, user_id):
 		self.update_row(updated_content, user_id)
 	def delete_user(self, user_id):
@@ -118,8 +116,6 @@ class PostsTable(DataBaseManager):
 		self.dbpswd = None
 		self.dbport = None
 
-	def create_post_table(self):
-		self.create_table()
 	def create_post(self, post_data):
 		self.insert(self, post_data)
 	def update_post(self, updated_post_data, post_id):
@@ -151,8 +147,6 @@ class CommentsTable(DataBaseManager):
 		self.dbpswd = None
 		self.dbport = None
 
-	def create_comment_table(self):
-		self.create_table()
 	def create_comment(self, comment_data):
 		self.insert(self, comment_data)
 	def update_comment(self, updated_comment_data, comment_id):
