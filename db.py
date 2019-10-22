@@ -69,9 +69,8 @@ class UserTableDB(DataBaseManager):
 		return users
 
 	def update_user(self, updated_content, user_id):
-		# updated_content = ['name', 'password','info', 'email','last_login', 'comments'] Values list
-		updates = '''name='{}', password='{}', info='{}', email='{}', last_login='{}', comments='{}' '''.format(*updated_content)
-		command	= '''UPDATE {} SET {} where id={};'''.format(self.table_name, updates, user_id)
+		update_string = ', '.join(["{}='{}'".format(k,v) for k,v in updated_content.items()])
+		command	= '''UPDATE {} SET {} where id={};'''.format(self.table_name, update_string, user_id)
 		self.db_do(command)	
 
 	def delete_user(self, user_id):
