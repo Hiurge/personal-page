@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Lukasz Pintal - Portfolio Page</title>
+        <link rel="stylesheet" href='/static/style.css' />
+    </head>
+
+    <body>
+        <div class='main_menu'>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/blog">Blog</a>
+            <a href="/miscs">Miscs</a>
+            <a href="/contact">Contact</a> 
+            {% if session['username'] and session['role'] != 'admin' %}
+                <a href="/logout">logout</a>
+            {% elif session['role'] == 'admin' %}
+                <a href="/create">create</a>
+                <a href="/manage">manage</a>
+                <a href="/logout">logout</a>
+            {% else %}
+                <a href="/login">login</a>
+                <a href="/singup">singup</a>
+            {% endif %}
+            {% if session['username'] %}
+                <span>     You are logged-in as {{ session['username'] }}.</span>
+            {% endif %}
+        </div>
+    {% block content %}{% endblock %}
+    </body>
+</html>
+
